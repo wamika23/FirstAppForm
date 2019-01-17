@@ -45,10 +45,14 @@ var phone=document.getElementById("Phonenumber").value;
 var address=document.getElementById("Address").value;
 
 var alphabetPattern=/^[A-Za-z ]+$/;
+var numberPattern = /^[0-9]+$/;
+var alphaNumericPattern= /^[0-9a-zA-Z]+$/;
+var atposition=email.indexOf("@");  
+var dotposition=email.lastIndexOf(".");  
 
 //validating a name
 
-if(name=""){
+if(name.length==0){
 alert("Name cannot blank");
 }
                      
@@ -56,7 +60,37 @@ if(!(name.match(alphabetPattern))){
 alert("Numbers or special characters are not allowed in name");
 }
 
+
+//validating an email
+if(email.length==0){
+alert("Email cannot be blank");
 }
+if (atposition<1 || dotposition<atposition+2 || dotposition+2>=email.length){  
+alert("Please enter a valid e-mail address"); 
+}
+
+
+//validating a phone
+if(phone.length==0){
+alert("Contact number cannot be blank");
+}
+if(phone.length!=10){
+alert("Contact number should be of length 10");
+}
+if(!(phone.match(numberPattern))){
+alert("only numbers are allowed in contact number");
+}
+
+}
+
+//validating an address
+if(address.length==0){
+alert("address cannot be blank");
+}
+if(!(address.match(alphaNumericPattern))){
+alert("No special ch are allowed in address");
+}
+
 </script>
 
 </body>
