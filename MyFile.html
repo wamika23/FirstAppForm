@@ -1,0 +1,63 @@
+<!Doctype HTML>
+<html>
+<head>
+</head>
+<body>
+<h1>My Application Form</h1>
+<p><b>All Fields are mandatory...!!</b></p>
+<form name="MyForm">
+<fieldset>
+<legend>PErsonal Information Form</legend>
+<table>
+<td>
+<tr>
+<td><b>Name:</b></td>
+<td><input type="text" id="Name" placeholder="Enter your name" size="175"></td>
+</tr>
+
+<tr>
+<td><b>EMail:</b></td>
+<td><input type="email" id="EMail" placeholder="Enter your email" size="175"></td>
+</tr>
+
+<tr>
+<td><b>Phone Number:</b></td>
+<td><input type="text" id="Phonenumber" placeholder="Enter your phone number" size="175"></td>
+</tr>
+
+<tr>
+<td><b>Address:</b></td>
+<td><input type="text" id="Address" placeholder="Enter your Address" size="175"></td>
+</tr>
+
+</table>
+<button type="button" id="bt1" onclick="addFunction()">ADD</button>
+</fieldset>
+</form>
+
+
+<script>
+function addFunction(){
+
+var name=document.getElementById("Name").value;
+var email=document.getElementById("EMail").value;
+var phone=document.getElementById("Phonenumber").value;
+var address=document.getElementById("Address").value;
+
+var alphabetPattern=/^[A-Za-z ]+$/;
+
+//validating a name
+
+if(name=""){
+alert("Name cannot blank");
+}
+                     
+if(!(name.match(alphabetPattern))){
+alert("Numbers or special characters are not allowed in name");
+}
+
+}
+</script>
+
+</body>
+</html>
