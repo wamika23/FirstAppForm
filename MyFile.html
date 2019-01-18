@@ -1,96 +1,157 @@
 <!Doctype HTML>
 <html>
 <head>
+<style>
+table, th, td {
+  border: 1px solid black;
+
+}
+</style>
 </head>
 <body>
 <h1>My Application Form</h1>
 <p><b>All Fields are mandatory...!!</b></p>
-<form name="MyForm">
+<form name="MyForm" id="MyForm">
 <fieldset>
 <legend>PErsonal Information Form</legend>
+<br>
 <table>
-<td>
+
 <tr>
 <td><b>Name:</b></td>
-<td><input type="text" id="Name" placeholder="Enter your name" size="175"></td>
+<td><input type="text" id="Name" placeholder="Enter your name" size="165"></td>
 </tr>
 
 <tr>
 <td><b>EMail:</b></td>
-<td><input type="email" id="EMail" placeholder="Enter your email" size="175"></td>
+<td><input type="email" id="EMail" placeholder="Enter your email" size="165"></td>
 </tr>
 
 <tr>
 <td><b>Phone Number:</b></td>
-<td><input type="text" id="Phonenumber" placeholder="Enter your phone number" size="175"></td>
+<td><input type="text" id="Phonenumber" placeholder="Enter your phone number" size="165"></td>
 </tr>
 
 <tr>
 <td><b>Address:</b></td>
-<td><input type="text" id="Address" placeholder="Enter your Address" size="175"></td>
+<td><input type="text" id="Addr" placeholder="Enter your address" size="165"></td>
 </tr>
 
 </table>
-<button type="button" id="bt1" onclick="addFunction()">ADD</button>
+<br>
+<button type="button" id="bt1" onclick="createFormModel()">ADD</button>
 </fieldset>
+<br>
+<table id="createTable" style="width:60%">
+<tr>
+<th>Name</th>
+<th>EMail</th>
+<th>Contact Number</th>
+<th>Address</th>
+<th>Checkbox</th>
+</tr>
+</table>
 </form>
 
-
 <script>
-function addFunction(){
+var dataFormArray=[];
 
-var name=document.getElementById("Name").value;
-var email=document.getElementById("EMail").value;
-var phone=document.getElementById("Phonenumber").value;
-var address=document.getElementById("Address").value;
+function createFormModel(){
+
+var obj={};
+obj.name=document.getElementById("Name").value;
+obj.email=document.getElementById("EMail").value;
+obj.phone=document.getElementById("Phonenumber").value;
+obj.addr=document.getElementById("Addr").value;
+
+if(isFormValid(obj)){
+dataFormArray.push(obj);
+console.log(obj);
+console.log(dataFormArray.length);
+console.log("Array is:"+dataFormArray);
+createTableRows(dataFormArray);
+
+function createTableRows(dataFormArray){
+var table=document.getElementById("createTable");
+var row=table.insertRow(-1);
+var cell0=row.insertCell(0);
+var cell1=row.insertCell(1);
+var cell2=row.insertCell(2);
+var cell3=row.insertCell(3);
+var cell4=row.insertCell(4);
+cell0.innerHTML=obj.name;
+cell1.innerHTML=obj.email;
+cell2.innerHTML=obj.phone;
+cell3.innerHTML=obj.addr;
+//cell4.innerHTML=<input type="checkbox" id="myCheck">
+document.getElementById("MyForm").reset();
+
+
+}
+}
+
+
+function isFormValid(obj){
+
+
 
 var alphabetPattern=/^[A-Za-z ]+$/;
 var numberPattern = /^[0-9]+$/;
-var alphaNumericPattern= /^[0-9a-zA-Z]+$/;
-var atposition=email.indexOf("@");  
-var dotposition=email.lastIndexOf(".");  
+var alphaNumericPattern= /^[0-9a-zA-Z ]+$/;
+var emailPattern=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
 
 //validating a name
 
-if(name.length==0){
+if(obj.name.length==0){
 alert("Name cannot blank");
+return false;
 }
                      
-if(!(name.match(alphabetPattern))){
+if(!(obj.name.match(alphabetPattern))){
 alert("Numbers or special characters are not allowed in name");
+return false;
 }
 
 
 //validating an email
-if(email.length==0){
+if(obj.email.length==0){
 alert("Email cannot be blank");
+return false;
 }
-if (atposition<1 || dotposition<atposition+2 || dotposition+2>=email.length){  
+if (!(obj.email.match(emailPattern))){  
 alert("Please enter a valid e-mail address"); 
+return false;
 }
 
 
 //validating a phone
-if(phone.length==0){
+if(obj.phone.length==0){
 alert("Contact number cannot be blank");
+return false;
 }
-if(phone.length!=10){
-alert("Contact number should be of length 10");
-}
-if(!(phone.match(numberPattern))){
+if(!(obj.phone.match(numberPattern))){
 alert("only numbers are allowed in contact number");
+return false;
+}
+if(obj.phone.length!=10){
+alert("Contact number should be of length 10");
+return false;
 }
 
-}
 
 //validating an address
-if(address.length==0){
-alert("address cannot be blank");
+if(obj.addr.length==0){
+alert("address cnnot be blank");
+return false;
 }
-if(!(address.match(alphaNumericPattern))){
-alert("No special ch are allowed in address");
+if(!(obj.addr.match(alphaNumericPattern))){
+alert("address cannot contain special characters,p");
+return false;
 }
-
+return true;
+}
+}
 </script>
 
 </body>
